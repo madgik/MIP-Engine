@@ -37,11 +37,9 @@ def context_id():
 
 
 def test_create_and_get_remote_table(context_id):
-    local_node_data = node_catalog.get_local_node(local_node_id)
+    local_node_data = node_catalog.get_node(local_node_id)
     # TODO remove this on the MIP-16
-    local_node_1_url = (
-        f"{local_node_data.monetdbHostname}:{local_node_data.monetdbPort}"
-    )
+    local_node_1_url = f"{local_node_data.monetdbIp}:{local_node_data.monetdbPort}"
 
     table_schema = TableSchema(
         [

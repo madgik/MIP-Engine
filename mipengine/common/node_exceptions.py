@@ -28,7 +28,9 @@ class IncompatibleSchemasMergeException(Exception):
 
     def __init__(self, table_infos: List[TableInfo]):
         self.table_infos = table_infos
-        self.message = f"Tables to be added doesn't match MERGE TABLE schema : {table_infos}"
+        self.message = (
+            f"Tables to be added doesn't match MERGE TABLE schema : {table_infos}"
+        )
         super().__init__(self.message)
 
 

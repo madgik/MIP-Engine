@@ -5,7 +5,7 @@ from typing import Tuple
 
 from celery import shared_task
 
-from mipengine import config
+from mipengine.node import config
 from mipengine.algorithms import UDF_REGISTRY
 
 # from mipengine.algorithms import demo  # TODO Split the actual and testing algorithms
@@ -30,8 +30,8 @@ def get_udfs(algorithm_name: str) -> List[str]:
 
 # TODO Verify time limit when udf tests are fixed
 @shared_task(
-    soft_time_limit=config.node.run_udf_soft_time_limit,
-    time_limit=config.node.run_udf_time_limit,
+    soft_time_limit=config.celery.run_udf_soft_time_limit,
+    time_limit=config.celery.run_udf_time_limit,
 )
 def run_udf(
     command_id: str,
@@ -64,7 +64,7 @@ def run_udf(
     """
 
     result_table_name = create_table_name(
-        "table", command_id, context_id, config.node.identifier
+        "table", command_id, context_id, config.identifier
     )
 
     positional_args = [UDFArgument.from_json(arg) for arg in positional_args_json]
@@ -178,14 +178,14 @@ def _generate_udf_statements(
     allowed_func_name = func_name.replace(".", "_")  # A dot is not an allowed character
     udf_name = _create_udf_name(allowed_func_name, command_id, context_id)
     result_table_name = create_table_name(
-        "table", command_id, context_id, config.node.identifier
+        "table", command_id, context_id, config.identifier
     )
 
     udf_creation_stmt = udf_creation_stmt.substitute(udf_name=udf_name)
     udf_execution_stmt = udf_execution_stmt.substitute(
         table_name=result_table_name,
         udf_name=udf_name,
-        node_id=config.node.identifier,
+        node_id=config.identifier,
     )
 
     return udf_creation_stmt, udf_execution_stmt
