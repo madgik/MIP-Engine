@@ -66,7 +66,8 @@ class MonetDB(metaclass=Singleton):
         Should NOT be used to execute "CREATE, DROP, ALTER, UPDATE, ..." statements.
         """
 
-        # We use a single instance of a connection and by committing before a select query we refresh the state of the database.
+        # We use a single instance of a connection and by committing before a select query we refresh the state of the connection
+        # So that it sees changes from other processes/connections.
         # https://stackoverflow.com/questions/9305669/mysql-python-connection-does-not-see-changes-to-database-made-on-another-connect.
         self._connection.commit()
 

@@ -1,6 +1,6 @@
 from typing import List
 
-from mipengine.common.validate_identifier_names import validate_identifier_names
+from mipengine.common.validators import validate_sql_params
 from mipengine.node.monetdb_interface.common_actions import get_table_names
 from mipengine.node.monetdb_interface.monet_db_connection import MonetDB
 
@@ -11,7 +11,7 @@ def get_view_names(context_id: str) -> List[str]:
     return get_table_names("view", context_id)
 
 
-@validate_identifier_names
+@validate_sql_params
 def create_view(
     view_name: str, pathology: str, datasets: List[str], columns: List[str]
 ):

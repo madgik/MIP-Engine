@@ -10,7 +10,7 @@ from mipengine.algorithms import UDF_REGISTRY
 
 # from mipengine.algorithms import demo  # TODO Split the actual and testing algorithms
 from mipengine.common.node_tasks_DTOs import UDFArgument
-from mipengine.common.validate_identifier_names import validate_identifier_names
+from mipengine.common.validators import validate_sql_params
 from mipengine.node.monetdb_interface import udfs
 from mipengine.node.monetdb_interface.common_actions import create_table_name
 from mipengine.node.monetdb_interface.common_actions import get_table_schema
@@ -123,7 +123,6 @@ def get_run_udf_query(
     )
 
 
-@validate_identifier_names
 def _create_udf_name(func_name: str, command_id: str, context_id: str) -> str:
     """
     Creates a udf name with the format <func_name>_<commandId>_<contextId>

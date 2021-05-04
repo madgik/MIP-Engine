@@ -24,7 +24,7 @@
    poetry shell
    ```
 
-1. *Optional* To install tab completion for `invoke` run  (replacing `bash` with you shell)
+1. *Optional* To install tab completion for `invoke` run  (replacing `bash` with your shell)
 
    ```
    source <(poetry run inv --print-completion-script bash)
